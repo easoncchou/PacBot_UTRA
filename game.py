@@ -42,14 +42,15 @@ while running:
     elapsed_time = (current_time - start_time) // 1000 
 
     current_x, current_y = pacman_x, pacman_y
-    path = get_next_coordinate(grid, (current_x, current_y))
+
+    path = [get_next_coordinate(grid, (current_x, current_y))]
     
     if path is None or len(path) == 0 or path[0] is None:
         print("Invalid Path. Try something else")
         running = False
         continue
-
-    pacman_x, pacman_y = path
+    
+    pacman_x, pacman_y = path[0]
 
     orientation_angle = 0
     if pacman_x < current_x:
@@ -61,7 +62,7 @@ while running:
     elif pacman_y > current_y:
         orientation_angle = 90
     
-    
+    # detects when Pac-Man munches a pellet
     if grid[pacman_x][pacman_y] == o:
         grid[pacman_x][pacman_y] = e
         score += 10
@@ -115,7 +116,7 @@ while running:
 
     pygame.display.flip()
 
-    clock.tick(2)
+    clock.tick(10)
 
 
 while True:
